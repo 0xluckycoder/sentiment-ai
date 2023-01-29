@@ -33,7 +33,7 @@
   - [x] - Authenticate Page
   - [x] - Rate & Review Page
 
-- [/] - Settings Page
+- [x] - Settings Page
 
   - Review page - https://play.google.com/store/apps/details?id=com.kitkagames.fallbuddies
 
