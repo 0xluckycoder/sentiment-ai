@@ -15,13 +15,45 @@
   - [x] - single review options
   - [x] - header / product info / integration
   - [x] - filter box
+  - [x] - Update button
+  - [x] - Delete button
+  - [ ] - Add new product/service card steps 
+    - Title
+    - Use Iframe to render data
+  - [ ] - widget feed
+  - [x] - Product/Service Edit popup
 
-- [x] - Integration Page
-  - [ ] - Custom Integration
-  - [ ] - Shopify Integration
-  - [ ] - Workflow
+- [x] - Reviews Page
+  - [x] - Settings
+  - [x] - Statistics popup
+  - [x] - Filter card
+  - [x] - Add reviews
 
-### Noted
+- [x] - Public Feed
+  - [x] - Authenticate Page
+  - [x] - Rate & Review Page
+
+- [/] - Settings Page
+
+  - Review page - https://play.google.com/store/apps/details?id=com.kitkagames.fallbuddies
+
+### Integration Feature
+---
+- Use Iframe to render reviews feed
+- Authorize before accepting public requests
+- Custom Integration
+  - For each product it has separate code snippets
+    - Products will differentiate from the url ID
+  - Copy and Paste the code snippet to creators website to generate review feed
+  - Public users can interact with the review section once snippet in integrated
+- Once users logged in with our app they can use the same account to write reviews anywhere
+- Custom Integration workflow
+  - Click create new product/service
+  - Add the title
+  - Generate Unique id for the product to identify integration
+  - Allow user to copy and paste into their website
+  - Review feed will appear on their website
+- Development guide  - https://www.upwork.com/resources/build-shopify-app
 
 
 ### Product Features
@@ -33,37 +65,65 @@
   - All positive, natural, negative reviews
 - Sentiment Filters at the top
 - Global Search bar
+- Create new card workflow
+  - Specify the product/service name
+  - Select preferred integration method (custom, shopify, wix)
+  - Finish the creation
 
 #### Single Product
 - Sentiment Filters at the top
+- Analytics
+  - Total Reviews
+  - Average Rating by stars
+  - Average Sentiment ratings
+- Product Settings
+  - Product Delete button
+    - Ask "are you sure you want to delete this item, this cannot be restored"
+  - Product Edit button
+    - Edit details popup
 - Product header
   - Product Name
   - Integration Logo
   - Total Reviews
 - Filters
-  - by stars
-  - by Unreplied
-  - by Latest/New
-  - by Date range
-  - clear button
+  - By stars
+  - By Unreplied
+  - By Latest/New
+  - By Date range
+  - Clear button
 - Statistics popup with date range and sentiment score
+- Integration button
+  - Copy the code snippet to clipboard
 - Review
-  - user info
-  - starts / heading / review body
-  - review translate option
-  - sentiment score
-  - ignore option
-  - delete option
-  - ability to translate reply realtime
+  - User info
+  - Stars / heading / review body
+  - Review translate option
+  - Sentiment score
+  - Ignore option
+  - Delete option
+  - Ability to translate reply with translated language
+- Add Review (this option allows users to add existing reviews to their app)
 
 #### Statistics
 - Chart that shows best and worst product
+- Learn how to build statistics - https://videos.blackmagic.so/justin-demo.mp4
+- Engage with customers
+- Target high volume customers
+- Sentiment rate of all products
+- 
 
 #### Integration
 - Integration workflow
-  - Custom Integration
+  - Option to enable/disable overall rating feature
 
 #### Settings
+- Billing section
+  - Cancel subscription
+  - Upgrade option & other available plans
+  - Show available reviews
+- Personal section
+  - Sign out
+  - Feedback option
 
 ### Sentiment NLP Features
 ---
