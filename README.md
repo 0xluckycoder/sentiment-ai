@@ -1,4 +1,57 @@
-### UI/UX
+### Database Entities
+---
+- User Entity
+  - ID - Number - (PK)
+  - Federated ID - String
+  - Pricing Plan - String
+  - Last payment Date/Time - Number (UNIX TimeStamp)
+  - Reviews Left - Number
+
+- Product Entity
+  - ID - Number - (PK)
+  - Title - String
+  - Total Reviews - Number
+  - Average Stars Rating - Map
+  ```
+    {
+      5: '',
+      4: '',
+      3: '',
+      2: '',
+      1: ''
+    }
+  ```
+  - Product Star Rating - Number
+  - Average Sentiment Rate - Number
+  - Sentiment Score Chart - Map
+  - Created Date/Time - Number (UNIX TimeStamp)
+  - Unseen Reviews - Set - (FK)
+
+- Review Entity
+  - ID - Number - (PK)
+  - Title - String
+  - Description - String
+  - Star Rate - Number
+  - User Federated ID - String
+  - Occupation - String
+  - Sentiment Rate - Number
+  - Submitted Date/Time - Number (UNIX TimeStamp) - (SK)
+  - Last Edited Date/Time - Number (UNIX TimeStamp)
+  - NLP
+    - Automated Suggestions - Set
+    - Sentiments - Set
+    - Automated Reply - String
+  - Is Deleted - Boolean
+  - Is Ignored - Boolean
+  - Is Unseen - Boolean
+
+### TODO
+---
+#### Backend
+- [x] - Cover Dynamodb docs
+- [x] - Conver Data Modeling / Architecture / Relationships Best Practices
+ 
+#### UI/UX
 - [x] - Theme colors
 - [x] - Font
 - [x] - Design library
