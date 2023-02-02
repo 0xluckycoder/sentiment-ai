@@ -45,11 +45,37 @@
   - Is Ignored - Boolean
   - Is Unseen - Boolean
 
+### Database Queries
+---
+
+- Front Page
+  - Get all products owned by the user
+  - Get all UnViewed Reviews with related product
+  - Get all reviews from all products that owned by the user
+  - Get product items that has reviews with defined sentiment word
+
+- Product Page
+  - Get reviews with defined sentiment word
+  - Get selected product
+  - Get all related reviews
+    - sort sentiment words
+    - calculate average rating
+    - calculate average sentiment rating
+    - calculate sentiment rating with date timeline
+  - Get total review count from product
+  - Update product title
+  - Create new review for the product
+  - Delete existing sentiment item
+
 ### TODO
 ---
 #### Backend
+
+- [x] - List All necessary queries before create the tables
 - [x] - Cover Dynamodb docs
 - [x] - Conver Data Modeling / Architecture / Relationships Best Practices
+- [ ] - Create dynamodb with attributes
+- [ ] - Load dynamodb with sample data set and perform query/mutations
  
 #### UI/UX
 - [x] - Theme colors
