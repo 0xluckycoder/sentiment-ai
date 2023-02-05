@@ -1,3 +1,5 @@
+### Timeline Plan
+
 ### Database Entities
 ---
 - User Entity
@@ -70,12 +72,13 @@
 ### TODO
 ---
 #### Backend
+- [ ] - Data Modeling
+  - [x] - List all access patterns 
+  - [/] - Model the database
+ 
+- [ ] - API Routes
 
-- [x] - List All necessary queries before create the tables
-- [x] - Cover Dynamodb docs
-- [x] - Conver Data Modeling / Architecture / Relationships Best Practices
-- [ ] - Create dynamodb with attributes
-- [ ] - Load dynamodb with sample data set and perform query/mutations
+#### Frontend
  
 #### UI/UX
 - [x] - Theme colors
@@ -137,6 +140,14 @@
 
 ### Product Features
 ---
+
+#### Challenges
+- [ ] - Only real buyers of product can add reviews
+
+#### 2.0 or additional features
+- [ ] - Get feedback about the review from public " was this review helpful ? / yes / no"
+- [ ] - Features
+
 #### Home
 - Card
   - Unseen reviews
