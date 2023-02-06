@@ -2,47 +2,54 @@
 
 ### Database Entities
 ---
+
+- Calculated By Backend
+  - Product
+    - Product Average Star Rating - Number
+    - Average Stars Rating By Each Star - Map
+      ```
+        {
+          5: '',
+          4: '',
+          3: '',
+          2: '',
+          1: ''
+        }
+      ```
+    - Average Sentiment Rate - Number
+    - Unseen Reviews - Set - (FK)
+    - Unseen Reviews - Set - (FK)
+    - Total Reviews - Number
+
 - User Entity
-  - ID - Number - (PK)
+  - ID - UUID - (PK)
   - Federated ID - String
   - Pricing Plan - String
   - Last payment Date/Time - Number (UNIX TimeStamp)
-  - Reviews Left - Number
+  - Remaining Reviews - Number
+  - User Created At - Date/Time
+  - Is Unpaid - Boolean
 
 - Product Entity
-  - ID - Number - (PK)
+  - ID - UUID - (PK)
+  - User UUID - (FK)
   - Title - String
-  - Total Reviews - Number
-  - Average Stars Rating - Map
-  ```
-    {
-      5: '',
-      4: '',
-      3: '',
-      2: '',
-      1: ''
-    }
-  ```
-  - Product Star Rating - Number
-  - Average Sentiment Rate - Number
-  - Sentiment Score Chart - Map
   - Created Date/Time - Number (UNIX TimeStamp)
-  - Unseen Reviews - Set - (FK)
 
 - Review Entity
-  - ID - Number - (PK)
+  - ID - UUID - (PK)
+  - Product ID - UUID - (FK)
+  - User Federated ID - String
   - Title - String
   - Description - String
   - Star Rate - Number
-  - User Federated ID - String
   - Occupation - String
   - Sentiment Rate - Number
   - Submitted Date/Time - Number (UNIX TimeStamp) - (SK)
   - Last Edited Date/Time - Number (UNIX TimeStamp)
-  - NLP
-    - Automated Suggestions - Set
-    - Sentiments - Set
-    - Automated Reply - String
+  - Automated Suggestions - Set
+  - Sentiments - Set
+  - Automated Reply - String
   - Is Deleted - Boolean
   - Is Ignored - Boolean
   - Is Unseen - Boolean
@@ -71,10 +78,18 @@
 
 ### TODO
 ---
+
+- [ ] - All more customizability in integration page UI
+
 #### Backend
 - [ ] - Data Modeling
   - [x] - List all access patterns 
+  - [x] - Update the database schema without any trigger values and aggregations
   - [/] - Model the database
+
+  - [ ] - AWS Account
+    - [/] - Create IAM account
+    - [ ] - Setup with Dynamodb free tier 
  
 - [ ] - API Routes
 
@@ -142,17 +157,22 @@
 ---
 
 #### Challenges
-- [ ] - Only real buyers of product can add reviews
+- Users can add review only after purchase
+  - this means users most likely not going to put a review
+  - solution:
+    - Generate One time submit link and send it to buyers
+- Manage Pricing and charging for customers
 
 #### 2.0 or additional features
 - [ ] - Get feedback about the review from public " was this review helpful ? / yes / no"
 - [ ] - Features
+- [ ] - Custom rating functionality (like in - https://eu.gymshark.com/products/gymshark-apex-t-shirt-black-onyx-grey-ss22)
 
 #### Home
 - Card
   - Unseen reviews
   - Unseen suggestions
-  - All positive, natural, negative reviews
+  - All Positive, Natural, Negative Reviews
 - Sentiment Filters at the top
 - Global Search bar
 - Create new card workflow
@@ -200,7 +220,6 @@
 - Engage with customers
 - Target high volume customers
 - Sentiment rate of all products
-- 
 
 #### Integration
 - Integration workflow
