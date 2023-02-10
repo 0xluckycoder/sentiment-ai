@@ -22,40 +22,44 @@
     - Total Reviews - Number
 
 - User Entity
-  - ID - UUID - (PK)
-  - Federated ID - String
-  - Pricing Plan - String
-  - Last payment Date/Time - Number (UNIX TimeStamp)
-  - Remaining Reviews - Number
-  - User Created At - Date/Time
-  - Is Unpaid - Boolean
+  - id - UUID - (PK)
+  - federated_id - String
+  - pricing_plan - String
+  - last_payment_date - Number (UNIX TimeStamp)
+  - remaining_reviews - Number
+  - created_at - Date/Time
+  - is_unpaid - Boolean
 
 - Product Entity
-  - ID - UUID - (PK)
-  - User UUID - (FK)
-  - Title - String
-  - Created Date/Time - Number (UNIX TimeStamp)
+  - id - UUID - (PK)
+  - user_id - UUID - (SK)
+  - title - String
+  - created_at - Number (UNIX TimeStamp)
+  - updated_at - Number (UNIX TimeStamp)
 
 - Review Entity
-  - ID - UUID - (PK)
-  - Product ID - UUID - (FK)
-  - User Federated ID - String
-  - Title - String
-  - Description - String
-  - Star Rate - Number
-  - Occupation - String
-  - Sentiment Rate - Number
-  - Submitted Date/Time - Number (UNIX TimeStamp) - (SK)
-  - Last Edited Date/Time - Number (UNIX TimeStamp)
-  - Automated Suggestions - Set
-  - Sentiments - Set
-  - Automated Reply - String
-  - Is Deleted - Boolean
-  - Is Ignored - Boolean
-  - Is Unseen - Boolean
-
-### Database Queries
+  - id - UUID - (PK)
+  - product_id - UUID - (FK)
+  - user_federated_id - String
+  - title - String
+  - review_description - String
+  - star_rate - Number
+  - occupation - String
+  - sentiment_rate - Number
+  - automated_suggestions - Set
+  - sentiments - Set
+  - automated_reply - String
+  - reply - String
+  - is_deleted - Boolean
+  - is_ignored - Boolean
+  - is_unseen - Boolean
+  - created_at (submitted) - Number (UNIX TimeStamp) - (SK)
+  - updated_at - Number (UNIX TimeStamp)
+### Database Access Patterns
 ---
+
+- Users
+  - Get all users by federated_id - make the fed id partition key
 
 - Front Page
   - Get all products owned by the user
@@ -79,19 +83,43 @@
 ### TODO
 ---
 
-- [ ] - All more customizability in integration page UI
+- [ ] - Allow more customizations in integration page UI 
 
 #### Backend
-- [ ] - Data Modeling
+- [x] - Data Modeling
   - [x] - List all access patterns 
   - [x] - Update the database schema without any trigger values and aggregations
-  - [/] - Model the database
+  - [x] - Model the database
 
-  - [ ] - AWS Account
-    - [/] - Create IAM account
-    - [ ] - Setup with Dynamodb free tier 
- 
-- [ ] - API Routes
+  - [x] - AWS Account
+    - [x] - Create IAM account
+
+  - [x] - Dynamodb
+    - [x] - configure with free tier
+    - [x] - create tables
+    - [x] - load sample data
+      - [x] - perform queries & mutations
+
+  - [/] - Configure development environment with AWS SAM, TypeScript & node_modules
+
+  - [ ] - API Routes
+    - [ ] - User
+      - [ ] - Create new user
+      - [ ] - GET - /api/users/:id - Get user record
+      - [ ] - POST - /api/users/:id - Create user record
+      - [ ] - DELETE - /api/users/:id - Delete user record
+    - [ ] - Product
+      - [ ] - POST - /api/products - Create new product
+      - [ ] - GET - /api/products - Get all products by auth user
+      - [ ] - GET - /api/products/:id - Get product by id
+      - [ ] - PUT - /api/products/id - Update product
+      - [ ] - DELETE - /api/products/:id - Delete product
+    - [ ] - Review
+      - [ ] - POST - /api/products/reviews - Create new review for defined product
+      - [ ] - GET - /api/products/reviews - Get all reviews by product
+      - [ ] - GET - /api/products/reviews/:id - Get single review
+      - [ ] - PUT - /api/products/reviews/:id - Update review
+      - [ ] - DELETE - /api/products/reviews/:id - Delete review
 
 #### Frontend
  
@@ -167,6 +195,8 @@
 - [ ] - Get feedback about the review from public " was this review helpful ? / yes / no"
 - [ ] - Features
 - [ ] - Custom rating functionality (like in - https://eu.gymshark.com/products/gymshark-apex-t-shirt-black-onyx-grey-ss22)
+- [ ] - Allow users to send emails through the app to collect reviews from their customers
+  - only one user can leave a review for one email 
 
 #### Home
 - Card
