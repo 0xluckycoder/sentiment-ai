@@ -1,0 +1,12 @@
+version = 0.1
+[reviews-app]
+[reviews-app.deploy]
+[reviews-app.deploy.parameters]
+stack_name = "reviews-app-stack"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-109dojn2t9c5l"
+s3_prefix = "reviews-app-stack"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []

@@ -102,11 +102,12 @@
 
   - [/] - Configure development environment with AWS SAM, TypeScript & node_modules
 
-  - [ ] - API Routes
-    - [ ] - User
-      - [ ] - Create new user
+  - OpenAPI Specification - https://spec.openapis.org/oas/v3.1.0#openapi-specification
+
+  - [/] - API Routes
+    - [/] - User
+      - [/] - POST - /api/users - Create user record
       - [ ] - GET - /api/users/:id - Get user record
-      - [ ] - POST - /api/users/:id - Create user record
       - [ ] - DELETE - /api/users/:id - Delete user record
     - [ ] - Product
       - [ ] - POST - /api/products - Create new product
