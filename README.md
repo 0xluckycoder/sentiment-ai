@@ -112,8 +112,8 @@ allow users to see all negative, positive, natural suggestions in one place
   - [/] - API Routes
     - [/] - User
       - [/] - POST - /api/users - Create user record
-      - [ ] - GET - /api/users/:id - Get user record
-      - [ ] - DELETE - /api/users/:id - Delete user record
+      - [ ] - GET - /api/users/:id - Get single user record
+      - [ ] - DELETE - /api/users/:id - Delete single user record
     - [ ] - Product
       - [ ] - POST - /api/products - Create new product
       - [ ] - GET - /api/products - Get all products by auth user

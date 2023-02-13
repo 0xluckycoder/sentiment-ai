@@ -7,14 +7,13 @@ Description: >
   
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 30
     Runtime: nodejs18.x
     Architectures:
       - x86_64
     Environment:
       Variables:
-        AccessId: '12345'
-        SecretKey: 'password'
+        Region: 'us-east-1'
 
 Resources:
   HelloWorldFunction:

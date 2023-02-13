@@ -10,6 +10,7 @@
     "compile": "tsc"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.267.0",
     "esbuild": "^0.14.14"
   },
   "devDependencies": {
