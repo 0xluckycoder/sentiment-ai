@@ -100,7 +100,7 @@
     - [x] - load sample data
       - [x] - perform queries & mutations
 
-  - [/] - Configure development environment with AWS SAM, TypeScript & node_modules
+  - [/x] - Configure development environment with AWS SAM, TypeScript & node_modules
 
   - OpenAPI Specification - https://spec.openapis.org/oas/v3.1.0#openapi-specification
 
