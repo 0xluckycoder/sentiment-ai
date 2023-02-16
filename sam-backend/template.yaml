@@ -46,6 +46,18 @@ Resources:
           Properties:
             Path: /api/v1/users
             Method: post
+  getUserById:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/users/
+      Handler: getUserById.getUserById
+      Events:
+        getUserById:
+          Type: HttpApi
+          Properties:
+            Path: /api/v1/users/{id}
+            Method: get
+  
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
@@ -54,3 +66,4 @@ Resources:
         Sourcemap: true
         EntryPoints: 
         - createUser.ts
+        - getUserById.ts
