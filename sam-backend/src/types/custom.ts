@@ -5,6 +5,12 @@ export type UserRequest = {
     pricingPlan: "basic" | "pro" | "enterprise"
 }
 
+export type ProductRequest = {
+    id: string,
+    user_id: string,
+    title: string
+}
+
 export type UserTableObject = {
     id?: unknown,
     federated_id?: string,
