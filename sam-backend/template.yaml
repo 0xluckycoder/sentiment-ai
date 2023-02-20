@@ -19,7 +19,7 @@ Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: functions/
+      CodeUri: src/
       Handler: app.lambdaHandler
       Events:
         HelloWorld:
@@ -38,7 +38,7 @@ Resources:
   createUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: functions/users/
+      CodeUri: src/users/
       Handler: createUser.createUser
       Events:
         createUser:
@@ -46,18 +46,6 @@ Resources:
           Properties:
             Path: /api/v1/users
             Method: post
-  getUserById:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: functions/users/
-      Handler: getUserById.getUserById
-      Events:
-        getUserById:
-          Type: HttpApi
-          Properties:
-            Path: /api/v1/users/{id}
-            Method: get
-  
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
@@ -66,4 +54,41 @@ Resources:
         Sourcemap: true
         EntryPoints: 
         - createUser.ts
+  getUserById:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/users/
+      Handler: getUserById.getUserById
+      Events:
+        getUserById:
+          Type: HttpApi
+          Properties:
+            Path: /api/v1/users/{id}
+            Method: get
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints: 
+        - getUserById.ts
+  deleteUserById:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/users/
+      Handler: deleteUserById.deleteUserById
+      Events:
+        deleteUserById:
+          Type: HttpApi
+          Properties:
+            Path: /api/v1/users/{id}
+            Method: delete
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints: 
         - getUserById.ts

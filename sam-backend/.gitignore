@@ -1,2 +1,2 @@
 /.aws-sam
-/functions/node_modules
+/src/node_modules
