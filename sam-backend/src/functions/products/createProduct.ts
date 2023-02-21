@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { v4 as uuidv4 } from 'uuid';
-import { ProductRequest } from '../types/custom';
+import { ProductRequest } from '../../types/custom';
+import { createProductDB } from '../../database/product';
 
 
 
@@ -18,28 +18,11 @@ export const createProduct = async (event: APIGatewayProxyEvent): Promise<APIGat
             title: requestData.title
         }
 
-        const client = new DynamoDBClient({
-            region: `${process.env.Region}`,
-        });
-        const command = new PutItemCommand({
-            TableName: "user",
-            Item: {
-                "id": {
-                    S: product.id
-                },
-                "user_id": {
-                    S: product.user_id
-                },
-                "title": {
-                    S: product.title
-                }
-            },
-        });
-        const response = await client.send(command);
+        const createProductDBResponse = await createProductDB(product);
         
         return {
             statusCode: 200,
-            body: JSON.stringify(response),
+            body: JSON.stringify(createProductDBResponse),
         };
     } catch (err) {
 

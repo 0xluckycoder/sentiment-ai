@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
-import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
-import { UserRequest, UserTableObject } from '../types/custom';
+import { formatResponse } from '../../utils/formatResponse';
+import { getUserByIdDB } from '../../database/user';
 
 export const getUserById = async (
     event: APIGatewayProxyEvent,
@@ -13,22 +13,10 @@ export const getUserById = async (
         // extract id parameter
         const userId = event.pathParameters!.id as string;
 
-        // grab the user from DB
-        const dynamodbClient = new DynamoDBClient({
-            region: `${process.env.Region}`,
-        });
-        const getItemCommand = new GetItemCommand({
-            Key: {
-                id: {
-                    S: userId
-                }
-            },
-            TableName: "user"
-        });
-        const getItemResponse = await dynamodbClient.send(getItemCommand);
+        const getUserByIdDBResponse = await getUserByIdDB(userId);
 
         // throw error if user doesn't exits
-        if (!getItemResponse.Item) {
+        if (!getUserByIdDBResponse.Item) {
             callback(null, {
                 statusCode: 404,
                 body: JSON.stringify({
@@ -37,18 +25,14 @@ export const getUserById = async (
             });
         }
 
-        // construct the response
-        const constructedResponse: any = {};
-        const itemKeys = Object.keys(getItemResponse.Item as Object);        
-        itemKeys.forEach(item => {
-            constructedResponse[item] = Object.values(getItemResponse!.Item![item])[0];
-        });
+        // format response
+        const formattedResponse = formatResponse([getUserByIdDBResponse.Item!])[0];
 
         // return the user if user is found
         return {
             statusCode: 200,
             body: JSON.stringify({
-                data: constructedResponse
+                data: formattedResponse
             }),
         };
 

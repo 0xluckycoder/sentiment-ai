@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
-import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb';
+import { formatResponse } from '../../utils/formatResponse';
+import { getProductsDB } from '../../database/product';
 
 export const getProducts = async (
     event: APIGatewayProxyEvent,
@@ -11,26 +12,25 @@ export const getProducts = async (
 
         const currentAuthUser = "24bef1a7-2816-48ed-bd09-bcbd07bb97e1";
 
-        // grab the user from DB
-        const dynamodbClient = new DynamoDBClient({
-            region: `${process.env.Region}`,
-        });
+        const getProductsDBResponse = await getProductsDB(currentAuthUser);
 
-        const getProductsCommand = new QueryCommand({
-            TableName: "product",
-            KeyConditionExpression: "user_id = :user_id",
-            ExpressionAttributeValues: {
-                ":user_id": {
-                    S: currentAuthUser
-                }
-            }
-        });
-        const getItemResponse = await dynamodbClient.send(getProductsCommand);
+        // throw error if no products available
+        if (!getProductsDBResponse.Items) {
+            callback(null, {
+                statusCode: 404,
+                body: JSON.stringify({
+                    message: "no products available"
+                }),
+            });
+        }
+        
+        // format response
+        const formattedResponse = formatResponse(getProductsDBResponse.Items!);
 
         return {
             statusCode: 200,
             body: JSON.stringify({
-                data: getItemResponse
+                data: formattedResponse
             }),
         };
 

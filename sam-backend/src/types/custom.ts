@@ -20,3 +20,7 @@ export type UserTableObject = {
     remaining_reviews?: number,
     user_created_at?: number
 }
+
+export type constructedResponseType = {
+    [key: string]: string
+}
