@@ -149,3 +149,22 @@ Resources:
         Sourcemap: true
         EntryPoints: 
         - getProductById.ts
+  updateProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/functions/products/
+      Handler: updateProduct.updateProduct
+      Events:
+        updateProduct:
+          Type: HttpApi
+          Properties:
+            Path: /api/v1/products/{id}
+            Method: put
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints: 
+        - updateProduct.ts

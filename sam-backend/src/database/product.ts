@@ -1,7 +1,8 @@
 import { 
     DynamoDBClient, 
     QueryCommand,
-    PutItemCommand
+    PutItemCommand,
+    UpdateItemCommand
 } from '@aws-sdk/client-dynamodb';
 import { ProductRequest } from '../types/custom';
  
@@ -12,7 +13,7 @@ export const createProductDB = async (product: ProductRequest) => {
             region: `${process.env.Region}`,
         });
         const command = new PutItemCommand({
-            TableName: "user",
+            TableName: "product",
             Item: {
                 "id": {
                     S: product.id
@@ -38,7 +39,7 @@ export const getProductByIdDB = async (currentAuthUser: string, productId: strin
         const dynamodbClient = new DynamoDBClient({
             region: `${process.env.Region}`,
         });
-        const getProductItemCommand = new QueryCommand({
+        const command = new QueryCommand({
             TableName: "product",
             KeyConditionExpression: "user_id = :user_id AND id = :id",
             ExpressionAttributeValues: {
@@ -50,8 +51,8 @@ export const getProductByIdDB = async (currentAuthUser: string, productId: strin
                 }
             }
         });
-        const getItemResponse = await dynamodbClient.send(getProductItemCommand);
-        return getItemResponse;
+        const response = await dynamodbClient.send(command);
+        return response;
     } catch (error) {
         throw error;
     }
@@ -63,7 +64,7 @@ export const getProductsDB = async (currentAuthUser: string) => {
         const dynamodbClient = new DynamoDBClient({
             region: `${process.env.Region}`,
         });
-        const getProductsCommand = new QueryCommand({
+        const command = new QueryCommand({
             TableName: "product",
             KeyConditionExpression: "user_id = :user_id",
             ExpressionAttributeValues: {
@@ -72,8 +73,42 @@ export const getProductsDB = async (currentAuthUser: string) => {
                 }
             }
         });
-        const getItemResponse = await dynamodbClient.send(getProductsCommand);
-        return getItemResponse;
+        const response = await dynamodbClient.send(command);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const updateProductDB = async (
+    userId: string, 
+    productId: string,
+    title: string
+) => {
+    try {
+
+        const dynamodbClient = new DynamoDBClient({
+            region: `${process.env.Region}`,
+        });
+        const command = new UpdateItemCommand({
+            TableName: "product",
+            Key: {
+                user_id: {
+                    S: userId
+                },
+                id: {
+                    S: productId
+                }
+            },
+            UpdateExpression: "set title = :title",
+            ExpressionAttributeValues: {
+                ":title": {
+                    S: title
+                }
+            }
+        });
+        const response = await dynamodbClient.send(command);
+        return response;
     } catch (error) {
         throw error;
     }
