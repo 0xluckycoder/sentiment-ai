@@ -1,3 +1,20 @@
+export type ReviewRequest = {
+    product_id: string,
+    id: string,
+    user_federated_id: string,
+    title?: string,
+    description: string,
+    star_rate?: number,
+    occupation?: string,
+    // sentiment_rate: string,
+    // automated_suggestion: string,
+    // sentiments: string,
+    // automated_reply: string,
+    // sent_reply: string,
+    created_at: number,
+    updated_at: number
+}
+
 export type UserRequest = {
     id: string,
     federated_id: string,
