@@ -206,3 +206,22 @@ Resources:
         Sourcemap: true
         EntryPoints: 
         - createReview.ts
+  updateReview:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/functions/reviews/
+      Handler: updateReview.updateReview
+      Events:
+        updateReview:
+          Type: HttpApi
+          Properties:
+            Path: /api/v1/reviews/{id}
+            Method: put
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints: 
+        - updateReview.ts

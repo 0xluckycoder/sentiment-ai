@@ -1,3 +1,7 @@
+export type ExpressionObject = {
+    [key: string]: any
+}
+
 export type ReviewRequest = {
     product_id: string,
     id: string,
@@ -14,6 +18,10 @@ export type ReviewRequest = {
     created_at: number,
     updated_at: number
 }
+
+// export type ReviewType = {
+    
+// }
 
 export type UserRequest = {
     id: string,
