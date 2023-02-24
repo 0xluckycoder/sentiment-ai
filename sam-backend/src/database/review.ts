@@ -203,3 +203,29 @@ export const updateReviewDB = async (
         throw error;
     }
 }
+
+
+export const getReviewByIdDB = async (productId: string, reviewId: string) => {
+    try {
+
+        const dynamodbClient = new DynamoDBClient({
+            region: `${process.env.Region}`,
+        });
+        const command = new QueryCommand({
+            TableName: "review",
+            KeyConditionExpression: "product_id = :product_id AND id = :id",
+            ExpressionAttributeValues: {
+                ":product_id": {
+                    S: productId
+                },
+                ":id": {
+                    S: reviewId
+                }
+            }
+        });
+        const response = await dynamodbClient.send(command);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
