@@ -54,6 +54,25 @@ Resources:
         Sourcemap: true
         EntryPoints: 
         - createUser.ts
+  updateUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/functions/users/
+      Handler: updateUser.updateUser
+      Events:
+        updateUser:
+          Type: HttpApi
+          Properties:
+            Path: /api/v1/users/{id}
+            Method: put
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints: 
+        - updateUser.ts
   getUserById:
     Type: AWS::Serverless::Function
     Properties:

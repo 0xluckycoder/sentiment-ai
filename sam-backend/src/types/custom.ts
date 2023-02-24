@@ -11,7 +11,7 @@ export type ReviewRequest = {
     star_rate?: number,
     occupation?: string,
     // sentiment_rate: string,
-    // automated_suggestion: string,
+    // automated_suggestion: string[],
     // sentiments: string,
     // automated_reply: string,
     // sent_reply: string,
@@ -19,15 +19,11 @@ export type ReviewRequest = {
     updated_at: number
 }
 
-// export type ReviewType = {
-    
-// }
-
 export type UserRequest = {
     id: string,
     federated_id: string,
-    currentUnixTime: number,
-    pricingPlan: "basic" | "pro" | "enterprise"
+    user_created_at: number,
+    pricing_plan: "basic" | "pro" | "enterprise"
 }
 
 export type ProductRequest = {

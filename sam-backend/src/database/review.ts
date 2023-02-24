@@ -78,56 +78,6 @@ export const updateReviewDB = async (
 
         const dynamodbExpression: string = expressionBuilder(data);
 
-        // console.log(dynamodbExpression);
-        // const obj = {
-        //     ...(data.title) && {
-        //         "title": {
-        //             S: data.title
-        //         }
-        //     },
-        //     ...(data.description) && {
-        //         "description": {
-        //             S: data.description
-        //         }
-        //     },
-        //     ...(data.star_rate) && {
-        //         "star_rate": {
-        //             N: `${data.star_rate}`
-        //         }
-        //     },
-        //     ...(data.occupation) && {
-        //         "occupation": {
-        //             S: data.occupation
-        //         }
-        //     },
-        //     ...(data.is_deleted) && {
-        //         "is_deleted": {
-        //             S: data.is_deleted
-        //         }
-        //     },
-        //     ...(data.is_ignored) && {
-        //         "is_ignored": {
-        //             S: data.is_ignored
-        //         }
-        //     },
-        //     ...(data.is_unseen) && {
-        //         "is_unseen": {
-        //             S: data.is_unseen
-        //         }
-        //     },
-        //     ...(data.created_at) && {
-        //         "is_deleted": {
-        //             S: data.created_at
-        //         }
-        //     },
-        //     ...(data.updated_at) && {
-        //         "is_deleted": {
-        //             S: data.updated_at
-        //         }
-        //     },
-        // };
-        // return obj;
-
         const dynamodbClient = new DynamoDBClient({
             region: `${process.env.Region}`,
         });

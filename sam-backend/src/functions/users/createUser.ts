@@ -14,8 +14,8 @@ export const createUser = async (event: APIGatewayProxyEvent): Promise<APIGatewa
         const user: UserRequest = {
             id: uuidv4(),
             federated_id: requestData.federated_id,
-            currentUnixTime: Date.now(),
-            pricingPlan: requestData.pricing_plan
+            user_created_at: Date.now(),
+            pricing_plan: requestData.pricing_plan
         }
 
         const createUserDBResponse = await createUserDB(user);
