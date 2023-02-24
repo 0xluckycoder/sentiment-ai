@@ -26,23 +26,58 @@ export const createReviewDB = async (review: ReviewRequest) => {
                 "user_federated_id": {
                     S: review.user_federated_id
                 },
-                ...(review.title) && {
+                ...(review.title) 
+                ? {
                     "title": {
                         S: review.title
                     }
-                },
+                } 
+                : {
+                    "title": {
+                        NULL: true
+                    }
+                }
+                ,
                 "description": {
                     S: review.description
                 },
-                ...(review.star_rate) && {
+                ...(review.star_rate) 
+                ? {
                     "star_rate": {
                         N: `${review.star_rate}`
                     }
-                },
-                ...(review.occupation) && {
+                }
+                : {
+                    "star_rate": {
+                        NULL: true
+                    }
+                }
+                ,
+                ...(review.occupation) 
+                ? {
                     "occupation": {
                         S: review.occupation
                     }
+                }
+                : {
+                    "occupation": {
+                        NULL: true
+                    }
+                },
+                "sentiment_rate": {
+                    NULL: true
+                },
+                "automated_suggestion": {
+                    NULL: true
+                },
+                "sentiments": {
+                    NULL: true
+                },
+                "automated_reply": {
+                    NULL: true
+                },
+                "sent_reply": {
+                    NULL: true
                 },
                 "is_deleted": {
                     BOOL: false
