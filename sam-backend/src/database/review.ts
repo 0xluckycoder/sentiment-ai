@@ -4,7 +4,8 @@ import {
     GetItemCommand,
     PutItemCommand,
     DeleteItemCommand,
-    UpdateItemCommand
+    UpdateItemCommand,
+    QueryCommand
 } from '@aws-sdk/client-dynamodb';
 import { expressionBuilder } from "../utils/expressionBuilder";
 
@@ -99,6 +100,27 @@ export const createReviewDB = async (review: ReviewRequest) => {
         const response = await client.send(command);
         return response;
 
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getReviewsDB = async (productId: string) => {
+    try {
+        const dynamodbClient = new DynamoDBClient({
+            region: `${process.env.Region}`,
+        });
+        const command = new QueryCommand({
+            TableName: "review",
+            KeyConditionExpression: "product_id = :product_id",
+            ExpressionAttributeValues: {
+                ":product_id": {
+                    S: productId
+                }
+            }
+        });
+        const response = await dynamodbClient.send(command);
+        return response;
     } catch (error) {
         throw error;
     }

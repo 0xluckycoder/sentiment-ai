@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
+import { getReviewsDB } from '../../database/review';
 import { formatResponse } from '../../utils/formatResponse';
-import { getProductsDB } from '../../database/product';
 
-export const getProducts = async (
+export const getReviews = async (
     event: APIGatewayProxyEvent,
     context: Context,
     callback: APIGatewayProxyCallback
@@ -10,22 +10,23 @@ export const getProducts = async (
 
     try {
 
-        const currentAuthUser = "24bef1a7-2816-48ed-bd09-bcbd07bb97e1";
+        const productId = event.pathParameters!.productId as string;
+        // const currentAuthUser = "24bef1a7-2816-48ed-bd09-bcbd07bb97e1";
 
-        const getProductsDBResponse = await getProductsDB(currentAuthUser);
+        const getReviewDBResponse = await getReviewsDB(productId);
 
         // throw error if no products available
-        if (getProductsDBResponse.Items?.length === 0) {
+        if (getReviewDBResponse.Items?.length === 0) {
             callback(null, {
                 statusCode: 404,
                 body: JSON.stringify({
-                    message: "no products available"
+                    message: "no reviews available with specified product id"
                 }),
             });
         }
         
         // format response
-        const formattedResponse = formatResponse(getProductsDBResponse.Items!);
+        const formattedResponse = formatResponse(getReviewDBResponse.Items!);
 
         return {
             statusCode: 200,
