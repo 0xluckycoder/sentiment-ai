@@ -229,3 +229,27 @@ export const getReviewByIdDB = async (productId: string, reviewId: string) => {
         throw error;
     }
 }
+
+export const deleteReviewByIdDB = async (productId: string, reviewId: string) => {
+    try {
+
+        const dynamodbClient = new DynamoDBClient({
+            region: `${process.env.Region}`,
+        });
+        const command = new DeleteItemCommand({
+            TableName: "review",
+            Key: {
+                product_id: {
+                    S: productId
+                },
+                id: {
+                    S: reviewId
+                }
+            }
+        });
+        const response = await dynamodbClient.send(command);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
