@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
 import { UserRequest } from '../../types/custom';
 import { createUserDB } from '../../database/user';
-
+import { errorHandler } from '../../utils/errorHandler';
 
 export const createUser = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
@@ -24,15 +24,7 @@ export const createUser = async (event: APIGatewayProxyEvent): Promise<APIGatewa
             statusCode: 200,
             body: JSON.stringify(createUserDBResponse),
         };
-    } catch (err) {
-
-        // handle control level and service level issues 
-        console.log('❌', err, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'some error happened',
-            }),
-        };
+    } catch (error) {
+        return errorHandler(error);
     }
 };

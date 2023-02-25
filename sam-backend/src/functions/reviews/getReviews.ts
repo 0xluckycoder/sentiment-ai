@@ -1,6 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
 import { getReviewsDB } from '../../database/review';
 import { formatResponse } from '../../utils/formatResponse';
+import { customError } from '../../utils/customError';
 
 export const getReviews = async (
     event: APIGatewayProxyEvent,
@@ -17,12 +18,7 @@ export const getReviews = async (
 
         // throw error if no products available
         if (getReviewDBResponse.Items?.length === 0) {
-            callback(null, {
-                statusCode: 404,
-                body: JSON.stringify({
-                    message: "no reviews available with specified product id"
-                }),
-            });
+            throw customError('no reviews available with specified product id','NotFoundException');
         }
         
         // format response

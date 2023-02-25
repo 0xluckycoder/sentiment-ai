@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
 import { ProductRequest } from '../../types/custom';
 import { createProductDB } from '../../database/product';
+import { errorHandler } from '../../utils/errorHandler';
 
 
 
@@ -24,15 +25,7 @@ export const createProduct = async (event: APIGatewayProxyEvent): Promise<APIGat
             statusCode: 200,
             body: JSON.stringify(createProductDBResponse),
         };
-    } catch (err) {
-
-        // handle control level and service level issues 
-        console.log('❌', err, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'some error happened',
-            }),
-        };
+    } catch (error) {
+        return errorHandler(error);
     }
 };

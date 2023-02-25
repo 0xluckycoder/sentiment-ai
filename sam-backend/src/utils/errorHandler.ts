@@ -2,6 +2,9 @@ import { ErrorTypes } from "../types/custom";
 
 export const errorHandler = (error: unknown) => {
 
+    // log error to the console
+    console.log('❌', error, '❌');
+
     const errorTypes: ErrorTypes = {
         ValidationError: 400,
         NotFoundException: 404
@@ -24,7 +27,6 @@ export const errorHandler = (error: unknown) => {
     } else {
 
         // handling unexpected errors
-        console.log(error);
         return {
             statusCode: 500,
             body: JSON.stringify({

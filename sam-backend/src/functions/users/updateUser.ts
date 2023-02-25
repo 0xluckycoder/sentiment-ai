@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
 import { updateUserDB } from '../../database/user';
+import { errorHandler } from '../../utils/errorHandler';
 
 export const updateUser = async (
     event: APIGatewayProxyEvent,
@@ -25,12 +26,6 @@ export const updateUser = async (
         };
 
     } catch (error) {
-        console.log('❌', error, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'server error',
-            }),
-        };
+        return errorHandler(error);
     }
 };

@@ -1,6 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
 import { formatResponse } from '../../utils/formatResponse';
 import { getUserByIdDB } from '../../database/user';
+import { errorHandler } from '../../utils/errorHandler';
+import { customError } from '../../utils/customError';
 
 export const getUserById = async (
     event: APIGatewayProxyEvent,
@@ -17,12 +19,7 @@ export const getUserById = async (
 
         // throw error if user doesn't exits
         if (!getUserByIdDBResponse.Item) {
-            callback(null, {
-                statusCode: 404,
-                body: JSON.stringify({
-                    message: "no user found with given id",
-                }),
-            });
+            throw customError('no user found with given id','NotFoundException');
         }
 
         // format response
@@ -37,12 +34,6 @@ export const getUserById = async (
         };
 
     } catch (error) {
-        console.log('❌', error, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'server error',
-            }),
-        };
+        return errorHandler(error);
     }
 };

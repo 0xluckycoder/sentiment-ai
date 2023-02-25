@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
 import { updateReviewDB } from '../../database/review';
+import { errorHandler } from '../../utils/errorHandler';
 
 export const updateReview = async (
     event: APIGatewayProxyEvent,
@@ -26,12 +27,6 @@ export const updateReview = async (
         };
 
     } catch (error) {
-        console.log('❌', error, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'server error',
-            }),
-        };
+        return errorHandler(error);
     }
 };

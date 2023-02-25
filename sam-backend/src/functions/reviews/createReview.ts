@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
-import { ReviewRequest, UserRequest } from '../../types/custom';
-import { createUserDB } from '../../database/user';
+import { ReviewRequest } from '../../types/custom';
 import { createReviewDB } from '../../database/review';
+import { errorHandler } from '../../utils/errorHandler';
 
 
 export const createReview = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -31,15 +31,7 @@ export const createReview = async (event: APIGatewayProxyEvent): Promise<APIGate
             statusCode: 200,
             body: JSON.stringify(createReviewDBResponse),
         };
-    } catch (err) {
-
-        // handle control level and service level issues 
-        console.log('❌', err, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'some error happened',
-            }),
-        };
+    } catch (error) {
+        return errorHandler(error);
     }
 };

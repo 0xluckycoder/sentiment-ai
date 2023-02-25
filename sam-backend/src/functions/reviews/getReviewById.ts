@@ -1,6 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
 import { getReviewByIdDB } from '../../database/review';
 import { formatResponse } from '../../utils/formatResponse';
+import { errorHandler } from '../../utils/errorHandler';
+import { customError } from '../../utils/customError';
  
 export const getReviewById = async (
     event: APIGatewayProxyEvent,
@@ -18,12 +20,7 @@ export const getReviewById = async (
 
         // throw error if user doesn't exits
         if (getReviewByIdDBResponse.Items?.length === 0) {
-            callback(null, {
-                statusCode: 404,
-                body: JSON.stringify({
-                    message: "no review found with given id",
-                }),
-            });
+            throw customError('no review found with given id','NotFoundException');
         }
 
         // format response
@@ -38,12 +35,6 @@ export const getReviewById = async (
         };
 
     } catch (error) {
-        console.log('❌', error, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'server error',
-            }),
-        };
+        return errorHandler(error);
     }
 };

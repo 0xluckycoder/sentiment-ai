@@ -36,7 +36,6 @@ export const getProductById = async (
         };
 
     } catch (error) {
-        console.log('❌', error, '❌');
         return errorHandler(error);
     }
 };

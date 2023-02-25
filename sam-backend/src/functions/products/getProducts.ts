@@ -1,6 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
 import { formatResponse } from '../../utils/formatResponse';
 import { getProductsDB } from '../../database/product';
+import { errorHandler } from '../../utils/errorHandler';
 
 export const getProducts = async (
     event: APIGatewayProxyEvent,
@@ -35,12 +36,6 @@ export const getProducts = async (
         };
 
     } catch (error) {
-        console.log('❌', error, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'server error',
-            }),
-        };
+        return errorHandler(error);
     }
 };

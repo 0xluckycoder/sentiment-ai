@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCallback } from 'aws-lambda';
 import { deleteUserByIdDB } from '../../database/user';
+import { errorHandler } from '../../utils/errorHandler';
 
 export const deleteUserById = async (
     event: APIGatewayProxyEvent,
@@ -22,12 +23,6 @@ export const deleteUserById = async (
         };
 
     } catch (error) {
-        console.log('❌', error, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'server error',
-            }),
-        };
+        return errorHandler(error);
     }
 };
