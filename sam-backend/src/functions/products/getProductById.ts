@@ -2,6 +2,9 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context, APIGatewayProxyCa
 import { formatResponse } from '../../utils/formatResponse';
 import { getProductByIdDB } from '../../database/product';
 
+import { errorHandler } from '../../utils/errorHandler';
+import { customError } from '../../utils/customError';
+
 export const getProductById = async (
     event: APIGatewayProxyEvent,
     context: Context,
@@ -17,13 +20,8 @@ export const getProductById = async (
         const getProductByIdDBResponse = await getProductByIdDB(currentAuthUser, productId);
 
         // throw error if user doesn't exits
-        if (!getProductByIdDBResponse.Items) {
-            callback(null, {
-                statusCode: 404,
-                body: JSON.stringify({
-                    message: "no product found with given id",
-                }),
-            });
+        if (getProductByIdDBResponse.Items?.length === 0) {
+            throw customError('no product found with given id','NotFoundException');
         }
 
         // format response
@@ -39,11 +37,6 @@ export const getProductById = async (
 
     } catch (error) {
         console.log('❌', error, '❌');
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'server error',
-            }),
-        };
+        return errorHandler(error);
     }
 };

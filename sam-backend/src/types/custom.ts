@@ -45,3 +45,7 @@ export type UserTableObject = {
 export type constructedResponseType = {
     [key: string]: string
 }
+
+export type ErrorTypes = {
+    [key: string]: number
+} 
