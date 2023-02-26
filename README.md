@@ -61,6 +61,8 @@
   - first_name
   - last_name
   - email
+
+
 ### Database Access Patterns
 ---
 
@@ -88,8 +90,3 @@
 
 
   - OpenAPI Specification - https://spec.openapis.org/oas/v3.1.0#openapi-specification
-
-add this important feature to the app - 
----------------------------------------------------------------------------
-make it easier for users to filter by complains & negatives
-allow users to see all negative, positive, natural suggestions in one place
