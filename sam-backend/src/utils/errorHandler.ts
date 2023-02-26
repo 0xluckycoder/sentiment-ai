@@ -3,7 +3,7 @@ import { ErrorTypes } from "../types/custom";
 export const errorHandler = (error: unknown) => {
 
     // log error to the console
-    console.log('❌', error, '❌');
+    console.log('xxxx', error, 'xxxx');
 
     const errorTypes: ErrorTypes = {
         ValidationError: 400,
