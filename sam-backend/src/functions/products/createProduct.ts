@@ -18,10 +18,7 @@ export const createProduct = async (event: APIGatewayProxyEvent): Promise<APIGat
             user_id: z.string(),
             title: z.string().max(15)
         });
-        const isValidData = productInput.safeParse({
-            user_id: requestData.user_id,
-            title: requestData.title
-        });
+        const isValidData = productInput.safeParse(requestData);
 
         // throw error if validation failed
         if (!isValidData.success) {
