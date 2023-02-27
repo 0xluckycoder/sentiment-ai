@@ -21,18 +21,20 @@ export const errorHandler = (error: unknown) => {
             body: JSON.stringify({
                 success: false,
                 errorType,
-                message
+                message,
+                error
             }),
         }
     } else {
 
-        // handling unexpected errors
+        // if not a error instance throw server error
         return {
             statusCode: 500,
             body: JSON.stringify({
                 success: false,
                 errorType: 'ServerError',
-                message: 'server error occurred'
+                message: 'server error occurred',
+                error
             }),
          
         }

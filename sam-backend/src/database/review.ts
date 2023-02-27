@@ -150,51 +150,51 @@ export const updateReviewDB = async (
             },
             UpdateExpression: dynamodbExpression,
             ExpressionAttributeValues: {
-                ...(data.title) && {
+                ...(data.hasOwnProperty('title')) && {
                     ":title": {
                         S: data.title
                     }
                 },
-                ...(data.description) && {
+                ...(data.hasOwnProperty('description')) && {
                     ":description": {
                         S: data.description
                     }
                 },
-                ...(data.star_rate) && {
+                ...(data.hasOwnProperty('star_rate')) && {
                     ":star_rate": {
                         N: `${data.star_rate}`
                     }
                 },
-                ...(data.occupation) && {
+                ...(data.hasOwnProperty('occupation')) && {
                     ":occupation": {
                         S: data.occupation
                     }
                 },
-                ...(data.is_deleted) && {
+                ...(data.hasOwnProperty('is_deleted')) && {
                     ":is_deleted": {
-                        S: data.is_deleted
+                        BOOL: `${data.is_deleted}`
                     }
                 },
-                ...(data.is_ignored) && {
+                ...(data.hasOwnProperty('is_ignored')) && {
                     ":is_ignored": {
-                        S: data.is_ignored
+                        BOOL: `${data.is_ignored}`
                     }
                 },
-                ...(data.is_unseen) && {
+                ...(data.hasOwnProperty('is_unseen')) && {
                     ":is_unseen": {
-                        S: data.is_unseen
+                        BOOL: `${data.is_unseen}`
                     }
                 },
-                ...(data.created_at) && {
-                    ":is_deleted": {
-                        S: data.created_at
+                ...(data.hasOwnProperty('created_at')) && {
+                    ":created_at": {
+                        N: `${data.created_at}`
                     }
-                },
-                ...(data.updated_at) && {
-                    ":is_deleted": {
-                        S: data.updated_at
+                },                
+                ...(data.hasOwnProperty('updated_at')) && {
+                    ":updated_at": {
+                        N: `${data.updated_at}`
                     }
-                },
+                }
             }
         });
         const response = await dynamodbClient.send(command);
