@@ -27,22 +27,21 @@ export const createReviewDB = async (review: ReviewRequest) => {
                 "user_federated_id": {
                     S: review.user_federated_id
                 },
-                ...(review.title) 
+                ...(review.hasOwnProperty('title')) 
                 ? {
                     "title": {
-                        S: review.title
+                        S: review.title as string
                     }
                 } 
                 : {
                     "title": {
                         NULL: true
                     }
-                }
-                ,
+                },
                 "description": {
                     S: review.description
                 },
-                ...(review.star_rate) 
+                ...(review.hasOwnProperty('star_rate')) 
                 ? {
                     "star_rate": {
                         N: `${review.star_rate}`
@@ -54,10 +53,10 @@ export const createReviewDB = async (review: ReviewRequest) => {
                     }
                 }
                 ,
-                ...(review.occupation) 
+                ...(review.hasOwnProperty('occupation')) 
                 ? {
                     "occupation": {
-                        S: review.occupation
+                        S: review.occupation as string
                     }
                 }
                 : {

@@ -89,22 +89,22 @@ export const updateUserDB = async (userId: string, data: any) => {
             },
             UpdateExpression: dynamodbExpression,
             ExpressionAttributeValues: {
-                ...(data.is_unpaid) && {
+                ...(data.hasOwnProperty('is_unpaid')) && {
                     ":is_unpaid": {
                         BOOL: data.is_unpaid
                     }
                 },
-                ...(data.last_payment_date) && {
+                ...(data.hasOwnProperty('last_payment_date')) && {
                     ":last_payment_date": {
                         N: data.last_payment_date
                     }
                 },
-                ...(data.pricing_plan) && {
+                ...(data.hasOwnProperty('pricing_plan')) && {
                     ":pricing_plan": {
                         S: data.pricing_plan
                     }
                 },
-                ...(data.remaining_reviews) && {
+                ...(data.hasOwnProperty('remaining_reviews')) && {
                     ":remaining_reviews": {
                         S: data.remaining_reviews
                     }
